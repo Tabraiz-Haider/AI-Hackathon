@@ -1,0 +1,135 @@
+.features {
+  display: flex;
+  align-items: stretch;
+  padding: 4rem 0;
+  width: 100%;
+  background: #0e0e0e;
+}
+
+.featuresContainer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Responsive grid layouts */
+@media screen and (max-width: 1200px) {
+  .featuresContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .featuresContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .featuresContainer {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .features {
+    padding: 2rem 0;
+  }
+}
+
+.featureCard {
+  background: #1a1a1a;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.featureCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 255, 255, 0.8);
+  box-shadow: 0 8px 30px rgba(0, 255, 255, 0.3), 0 0 40px rgba(168, 85, 247, 0.2);
+}
+
+.featureCardTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #00ffff;
+  margin-bottom: 1rem;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.featureCardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.chapterButtonLink {
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: 8px;
+  color: #00ffff;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  text-align: center;
+  display: block;
+  text-decoration: none;
+}
+
+.chapterButtonLink:hover {
+  background: rgba(0, 255, 255, 0.2);
+  border-color: rgba(0, 255, 255, 0.8);
+  color: #ffffff;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 255, 255, 0.4);
+}
+
+/* Large card for Chapter 10 */
+.featureCardLarge {
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
+  border: 2px solid rgba(0, 255, 255, 0.4);
+  padding: 2rem;
+}
+
+.featureCardLarge:hover {
+  border-color: rgba(0, 255, 255, 1);
+  box-shadow: 0 10px 40px rgba(0, 255, 255, 0.4), 0 0 50px rgba(168, 85, 247, 0.3);
+}
+
+.featureCardLarge .featureCardTitle {
+  font-size: 1.5rem;
+}
+
+/* Motivation card styling */
+.motivationCard {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(0, 255, 255, 0.1) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.motivationCard:hover {
+  border-color: rgba(168, 85, 247, 0.8);
+  box-shadow: 0 8px 30px rgba(168, 85, 247, 0.3), 0 0 40px rgba(0, 255, 255, 0.2);
+}
+
+.motivationCard .featureCardTitle {
+  color: #a855f7;
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+.motivationText {
+  color: #c0c0c0;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  text-align: center;
+}

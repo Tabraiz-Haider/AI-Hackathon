@@ -1,0 +1,172 @@
+/* styles.module.css for ChapterCard */
+
+.chapterCard {
+  background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%);
+  border: 2px solid rgba(0, 255, 255, 0.15);
+  background-clip: padding-box;
+  border-radius: 18px;
+  padding: 2.5rem;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(0, 255, 255, 0.05);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+  backdrop-filter: blur(10px);
+}
+
+.chapterCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(var(--neon-cyan-rgb), 0.4), rgba(var(--neon-purple-rgb), 0.4));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.chapterCard::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(var(--neon-cyan-rgb), 0.1) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.chapterCard:hover {
+  transform: translateY(-14px) scale(1.03);
+  box-shadow:
+    0 25px 70px rgba(var(--neon-cyan-rgb), 0.35),
+    0 0 100px rgba(var(--neon-purple-rgb), 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.chapterCard:hover::before {
+  opacity: 1;
+}
+
+.chapterCard:hover::after {
+  opacity: 1;
+}
+
+.chapterCardTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-green) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.3px;
+  position: relative;
+  z-index: 1;
+  line-height: 1.3;
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.chapterCardDescription {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ifm-font-color-base);
+  margin-bottom: 2rem;
+  flex-grow: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.chapterCardButton {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(var(--neon-cyan-rgb), 0.1) 0%, rgba(var(--neon-purple-rgb), 0.1) 100%);
+  border: 2px solid rgba(var(--neon-cyan-rgb), 0.5);
+  color: var(--neon-cyan);
+  font-weight: 700;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  text-align: center;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.chapterCardButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-purple) 100%);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+  z-index: -1;
+}
+
+.chapterCardButton:hover {
+  color: #000000;
+  border-color: var(--neon-cyan);
+  box-shadow:
+    0 0 30px rgba(var(--neon-cyan-rgb), 0.6),
+    inset 0 0 20px rgba(var(--neon-cyan-rgb), 0.2);
+  transform: translateY(-2px);
+}
+
+.chapterCardButton:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Responsive adjustments for chapter cards */
+@media screen and (max-width: 996px) {
+  .chapterCard {
+    padding: 2rem;
+  }
+  .chapterCardTitle {
+    font-size: 1.35rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .chapterCard {
+    padding: 2rem;
+  }
+  .chapterCardTitle {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .chapterCard {
+    padding: 1.75rem;
+  }
+  .chapterCardTitle {
+    font-size: 1.25rem;
+  }
+  .chapterCardDescription {
+    font-size: 0.95rem;
+  }
+  .chapterCardButton {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}

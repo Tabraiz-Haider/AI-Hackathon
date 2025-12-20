@@ -1,0 +1,1 @@
+The `requirements.md` file is located at: `specs/1-create-robotics-textbook/checklists/requirements.md`

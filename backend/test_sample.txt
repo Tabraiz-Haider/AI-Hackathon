@@ -1,0 +1,19 @@
+Physical AI and Humanoid Robotics
+
+Chapter 1: Introduction to Physical AI
+
+Physical AI refers to artificial intelligence systems that interact with the physical world through robotic embodiments. Unlike traditional AI that operates purely in digital spaces, Physical AI combines perception, reasoning, and action in real-world environments.
+
+Key concepts include:
+- Embodied cognition: The idea that intelligence emerges from the interaction between body and environment
+- Sensor fusion: Combining data from multiple sensors (cameras, LiDAR, IMU) for environmental understanding
+- Real-time control: Making decisions and executing actions with minimal latency
+
+Humanoid Robotics Overview:
+Humanoid robots are designed to mimic human form and movement. Popular examples include:
+- Boston Dynamics' Atlas
+- Tesla Optimus
+- Figure AI's Figure 01
+- Agility Robotics' Digit
+
+These robots use advanced actuators, computer vision, and machine learning to navigate complex environments and perform tasks alongside humans.
