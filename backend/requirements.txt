@@ -10,3 +10,10 @@ psycopg2-binary
 python-multipart
 openai
 langchain-qdrant
+sqlalchemy
+passlib[bcrypt]
+python-jose[cryptography]
+email-validator
+google-auth
+google-auth-oauthlib
+google-auth-httplib2

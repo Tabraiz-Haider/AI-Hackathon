@@ -81,6 +81,10 @@ const config: Config = {
           label: 'Textbook Chapters',
         },
         {
+          type: 'custom-auth',
+          position: 'right',
+        },
+        {
           type: 'custom-languageSwitcher',
           position: 'right',
         },

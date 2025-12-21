@@ -2,10 +2,13 @@
 import os
 import uvicorn
 from dotenv import load_dotenv
-from fastapi import FastAPI, UploadFile, File, HTTPException, Body
+from fastapi import FastAPI, UploadFile, File, HTTPException, Body, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from typing import List
+from pydantic import BaseModel, EmailStr
+from typing import List, Optional
+from sqlalchemy.orm import Session
+from google.oauth2 import id_token
+from google.auth.transport import requests as google_requests
 
 # --- LangChain Imports ---
 from langchain_core.prompts import ChatPromptTemplate
@@ -16,6 +19,13 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # --- Local Imports ---
 from vector_store import get_vector_store, ingest_text, get_env_variable
+from database import get_db, init_db, User
+from auth import (
+    get_password_hash,
+    verify_password,
+    create_access_token,
+    get_current_user
+)
 
 # --- Environment and App Setup ---
 load_dotenv()
@@ -51,6 +61,29 @@ class ChatSelectionRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     answer: str
+
+# --- Authentication Models ---
+class SignupRequest(BaseModel):
+    username: str
+    email: EmailStr
+    password: str
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str
+    username: str
+
+class UserResponse(BaseModel):
+    id: int
+    username: str
+    email: str
+
+class GoogleLoginRequest(BaseModel):
+    token: str
 
 # --- LangChain RAG Setup ---
 # Initialize the LLM with Groq
@@ -207,6 +240,146 @@ async def chat_selection_endpoint(request: ChatSelectionRequest):
 @app.get("/", include_in_schema=False)
 async def root():
     return {"message": "Welcome to the RAG Chatbot Backend. Visit /docs for the API documentation."}
+
+# --- Authentication Endpoints ---
+@app.on_event("startup")
+async def startup_event():
+    """Initialize database on startup"""
+    init_db()
+    print("Database initialized successfully")
+
+@app.post("/auth/signup", response_model=TokenResponse, status_code=201)
+async def signup(request: SignupRequest, db: Session = Depends(get_db)):
+    """
+    Register a new user
+    """
+    # Check if username already exists
+    existing_user = db.query(User).filter(User.username == request.username).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Username already registered")
+
+    # Check if email already exists
+    existing_email = db.query(User).filter(User.email == request.email).first()
+    if existing_email:
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    # Create new user
+    hashed_password = get_password_hash(request.password)
+    new_user = User(
+        username=request.username,
+        email=request.email,
+        hashed_password=hashed_password
+    )
+
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+
+    # Create access token
+    access_token = create_access_token(data={"sub": new_user.username})
+
+    return TokenResponse(
+        access_token=access_token,
+        token_type="bearer",
+        username=new_user.username
+    )
+
+@app.post("/auth/login", response_model=TokenResponse)
+async def login(request: LoginRequest, db: Session = Depends(get_db)):
+    """
+    Login user and return access token
+    """
+    # Find user by username
+    user = db.query(User).filter(User.username == request.username).first()
+
+    if not user or not verify_password(request.password, user.hashed_password):
+        raise HTTPException(
+            status_code=401,
+            detail="Incorrect username or password"
+        )
+
+    # Create access token
+    access_token = create_access_token(data={"sub": user.username})
+
+    return TokenResponse(
+        access_token=access_token,
+        token_type="bearer",
+        username=user.username
+    )
+
+@app.get("/auth/me", response_model=UserResponse)
+async def get_me(current_user: dict = Depends(get_current_user), db: Session = Depends(get_db)):
+    """
+    Get current logged-in user information
+    """
+    user = db.query(User).filter(User.username == current_user["username"]).first()
+
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    return UserResponse(
+        id=user.id,
+        username=user.username,
+        email=user.email
+    )
+
+@app.post("/auth/google", response_model=TokenResponse)
+async def google_login(request: GoogleLoginRequest, db: Session = Depends(get_db)):
+    """
+    Login or signup using Google OAuth token
+    """
+    try:
+        # Get Google Client ID from environment
+        GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+
+        if not GOOGLE_CLIENT_ID:
+            raise HTTPException(status_code=500, detail="Google OAuth not configured")
+
+        # Verify the Google token
+        idinfo = id_token.verify_oauth2_token(
+            request.token,
+            google_requests.Request(),
+            GOOGLE_CLIENT_ID
+        )
+
+        # Get user info from Google token
+        google_user_id = idinfo['sub']
+        email = idinfo['email']
+        name = idinfo.get('name', email.split('@')[0])
+
+        # Check if user exists
+        user = db.query(User).filter(User.email == email).first()
+
+        if not user:
+            # Create new user with Google info
+            username = email.split('@')[0] + '_' + google_user_id[:8]
+
+            # Generate a random password (user won't use it for Google login)
+            random_password = get_password_hash(os.urandom(32).hex())
+
+            user = User(
+                username=username,
+                email=email,
+                hashed_password=random_password
+            )
+            db.add(user)
+            db.commit()
+            db.refresh(user)
+
+        # Create access token
+        access_token = create_access_token(data={"sub": user.username})
+
+        return TokenResponse(
+            access_token=access_token,
+            token_type="bearer",
+            username=user.username
+        )
+
+    except ValueError as e:
+        # Invalid token
+        raise HTTPException(status_code=401, detail="Invalid Google token")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Google authentication failed: {str(e)}")
 
 if __name__ == "__main__":
     # To run this server:

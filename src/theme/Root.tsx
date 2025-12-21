@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation } from '@docusaurus/router';
 import Chatbot from '../components/Chatbot/Chatbot';
+import { AuthProvider } from '../contexts/AuthContext';
 
 // This component wraps the entire app
 export default function Root({children}) {
@@ -63,9 +64,9 @@ export default function Root({children}) {
   }, [location.pathname]);
 
   return (
-    <>
+    <AuthProvider>
       {children}
       <Chatbot />
-    </>
+    </AuthProvider>
   );
 }
