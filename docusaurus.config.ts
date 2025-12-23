@@ -7,15 +7,16 @@ const config: Config = {
   tagline: 'AI/Spec-Driven Textbook for Humanoid Robotics',
   favicon: 'img/favicon.ico',
 
-  url: 'https://your-docusaurus-site.example.com',
+  // UPDATE: Yahan apni asal website ka link dalna hoga deploy hone ke baad
+  url: 'https://physical-ai-robotics.vercel.app', 
   baseUrl: '/',
 
   organizationName: 'Tabraiz-Haider',
-  projectName: 'physical-ai-textbook',
+  projectName: 'AI-Hackathon', // Repo name ke mutabiq update kiya hai
 
-  // FIX: In dono lines ko change kiya hai taake build fail na ho
+  // Deployment safety
   onBrokenLinks: 'warn', 
-  onBrokenMarkdownLinks: 'ignore',
+  onBrokenMarkdownLinks: 'warn',
 
   i18n: {
     defaultLocale: 'en',
@@ -29,7 +30,7 @@ const config: Config = {
       ur: {
         label: 'اردو',
         direction: 'rtl',
-        htmlLang: 'ur',
+        htmlLang: 'ur-PK',
       },
     },
   },
@@ -40,7 +41,6 @@ const config: Config = {
       {
         id: 'urdu-docs',
         path: 'urdu-docs',
-        // Isay vapas 'ur' kar rahe hain lekin i18n ke saath sahi se configure kar rahe hain
         routeBasePath: 'ur', 
         sidebarPath: require.resolve('./sidebars-urdu.ts'),
       },
@@ -52,12 +52,12 @@ const config: Config = {
       'classic',
       {
         docs: {
-          sidebarPath: './sidebars.ts',
+          sidebarPath: require.resolve('./sidebars.ts'),
           routeBasePath: 'docs',
         },
         blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: require.resolve('./src/css/custom.css'),
         },
       } satisfies Preset.Options,
     ],
@@ -66,6 +66,7 @@ const config: Config = {
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
     colorMode: {
+      defaultMode: 'dark',
       respectPrefersColorScheme: true,
     },
     navbar: {
@@ -82,11 +83,7 @@ const config: Config = {
           label: 'Textbook Chapters',
         },
         {
-          type: 'custom-auth',
-          position: 'right',
-        },
-        {
-          type: 'custom-languageSwitcher',
+          type: 'localeDropdown',
           position: 'right',
         },
         {
@@ -96,10 +93,9 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://github.com/Tabraiz-Haider',
-          className: 'header-github-link',
-          'aria-label': 'GitHub repository',
+          href: 'https://github.com/Tabraiz-Haider/AI-Hackathon',
           position: 'right',
+          label: 'GitHub',
         },
       ],
     },
@@ -107,70 +103,21 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Links',
+          title: 'Chapters',
           items: [
-            {
-              label: 'Introduction',
-              to: '/docs/my-book/introduction',
-            },
-            {
-              label: 'Chapter 1: Basics of Physical AI',
-              to: '/docs/my-book/chapter-1',
-            },
-            {
-              label: 'Chapter 10: Applications',
-              to: '/docs/my-book/chapter-10',
-            },
-            {
-              label: 'Conclusion',
-              to: '/docs/my-book/conclusion',
-            },
+            { label: 'Introduction', to: '/docs/my-book/introduction' },
+            { label: 'Chapter 1', to: '/docs/my-book/chapter-1' },
           ],
         },
         {
-          title: 'Hackathon & Tools',
+          title: 'Community',
           items: [
-            {
-              label: 'Panaversity',
-              href: 'https://panaversity.org/',
-            },
-            {
-              label: 'GIAIC',
-              href: 'https://www.governorhouse.com.pk/',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/Tabraiz-Haider',
-            },
-            {
-              label: 'LinkedIn',
-              href: 'https://www.linkedin.com/in/tabraiz-haider-a2a4942a9/',
-            },
-          ],
-        },
-        {
-          title: 'Project Tools',
-          items: [
-            {
-              label: 'Docusaurus',
-              href: 'https://docusaurus.io/',
-            },
-            {
-              label: 'Privacy Policy',
-              to: '/privacy',
-            },
-            {
-              label: 'Terms of Service',
-              to: '/terms',
-            },
-            {
-              label: 'WhatsApp Support',
-              href: 'https://wa.me/923118716038',
-            },
+            { label: 'Panaversity', href: 'https://panaversity.org/' },
+            { label: 'WhatsApp Support', href: 'https://wa.me/923118716038' },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Physical AI Robotics Course | Built with ❤️ for GIAIC Hackathon by Muhammad Shayan`,
+      copyright: `Copyright © ${new Date().getFullYear()} Physical AI Robotics Course | Built for GIAIC Hackathon by Muhammad Shayan`,
     },
     prism: {
       theme: prismThemes.github,
