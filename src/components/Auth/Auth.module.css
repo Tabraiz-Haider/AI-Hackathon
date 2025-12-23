@@ -275,27 +275,188 @@
 }
 
 /* Responsive Design */
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
   .authContent {
-    padding: 1.25rem 1.25rem;
+    padding: 1.5rem 1.25rem;
     width: 95%;
+    max-width: 95%;
+    max-height: 95vh;
+    border-radius: 12px;
+  }
+
+  .closeButton {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 36px;
+    height: 36px;
+    font-size: 1.8rem;
   }
 
   .authTitle {
     font-size: 1.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .authSubtitle {
     font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .googleButtonContainer {
+    margin-bottom: 0.75rem;
+  }
+
+  .divider {
+    margin: 0.75rem 0;
+  }
+
+  .divider span {
+    font-size: 0.75rem;
+    padding: 0 0.75rem;
+  }
+
+  .authForm {
+    gap: 0.75rem;
+  }
+
+  .inputGroup {
+    gap: 0.35rem;
+  }
+
+  .label {
+    font-size: 0.825rem;
   }
 
   .input {
-    padding: 0.65rem 0.875rem;
-    font-size: 0.95rem;
+    padding: 0.7rem 0.875rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+    border-radius: 8px;
   }
 
   .submitButton {
-    padding: 0.75rem;
+    padding: 0.8rem;
     font-size: 0.95rem;
+    margin-top: 0.5rem;
+  }
+
+  .errorMessage {
+    padding: 0.65rem 0.75rem;
+    font-size: 0.825rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .authFooter {
+    margin-top: 1rem;
+    padding-top: 1rem;
+  }
+
+  .authFooter p {
+    font-size: 0.825rem;
+  }
+
+  .switchButton {
+    font-size: 0.85rem;
+  }
+}
+
+/* Small Mobile Phones */
+@media screen and (max-width: 380px) {
+  .authContent {
+    padding: 1.25rem 1rem;
+    width: 98%;
+    max-height: 98vh;
+    border-radius: 10px;
+  }
+
+  .closeButton {
+    width: 32px;
+    height: 32px;
+    font-size: 1.6rem;
+  }
+
+  .authTitle {
+    font-size: 1.35rem;
+  }
+
+  .authSubtitle {
+    font-size: 0.8rem;
+  }
+
+  .label {
+    font-size: 0.8rem;
+  }
+
+  .input {
+    padding: 0.65rem 0.75rem;
+    font-size: 16px;
+  }
+
+  .submitButton {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  .divider span {
+    font-size: 0.7rem;
+  }
+
+  .authFooter p {
+    font-size: 0.8rem;
+  }
+
+  .switchButton {
+    font-size: 0.8rem;
+  }
+}
+
+/* Landscape Mobile Orientation */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+  .authContent {
+    max-height: 95vh;
+    padding: 1rem 1.5rem;
+  }
+
+  .authTitle {
+    font-size: 1.4rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .authSubtitle {
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .googleButtonContainer {
+    margin-bottom: 0.5rem;
+  }
+
+  .divider {
+    margin: 0.5rem 0;
+  }
+
+  .authForm {
+    gap: 0.6rem;
+  }
+
+  .inputGroup {
+    gap: 0.25rem;
+  }
+
+  .label {
+    font-size: 0.8rem;
+  }
+
+  .input {
+    padding: 0.6rem 0.75rem;
+  }
+
+  .submitButton {
+    padding: 0.65rem;
+    margin-top: 0.35rem;
+  }
+
+  .authFooter {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
   }
 }

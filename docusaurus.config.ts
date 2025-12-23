@@ -89,13 +89,13 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://www.linkedin.com/in/muhammad-shayan-99a39b2b0/',
+          href: 'https://www.linkedin.com/in/tabraiz-haider-a2a4942a9/',
           className: 'header-linkedin-link',
           'aria-label': 'LinkedIn profile',
           position: 'right',
         },
         {
-          href: 'https://github.com/Shayan-meo',
+          href: 'https://github.com/Tabraiz-Haider',
           className: 'header-github-link',
           'aria-label': 'GitHub repository',
           position: 'right',
@@ -139,11 +139,11 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/Shayan-meo',
+              href: 'https://github.com/Tabraiz-Haider',
             },
             {
               label: 'LinkedIn',
-              href: 'https://www.linkedin.com/in/muhammad-shayan-99a39b2b0/',
+              href: 'https://www.linkedin.com/in/tabraiz-haider-a2a4942a9/',
             },
           ],
         },

@@ -33,7 +33,7 @@ export default function Signup({ onClose, onSwitchToLogin }: SignupProps) {
     script.onload = () => {
       if (window.google) {
         window.google.accounts.id.initialize({
-          client_id: '491966408492-9musmunq0k52qu9vhe074laujdti4qaf.apps.googleusercontent.com',
+          client_id: '736443808700-cbikbdim2ek521asqo2alti7gr4nbdva.apps.googleusercontent.com',
           callback: handleGoogleResponse,
         });
 

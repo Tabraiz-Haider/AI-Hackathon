@@ -253,12 +253,124 @@
 }
 
 /* Mobile Responsive */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  .chatbotToggle {
+    bottom: 15px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
+    font-size: 35px;
+  }
+
   .chatbotWindow {
-    width: calc(100vw - 40px);
-    height: calc(100vh - 120px);
-    right: 20px;
-    bottom: 90px;
+    width: 100%;
+    height: 100%;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .chatbotHeader {
+    padding: 14px 16px;
+  }
+
+  .chatbotTitle {
+    font-size: 15px;
+  }
+
+  .chatbotIcon {
+    font-size: 18px;
+  }
+
+  .chatbotMessages {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .message {
+    max-width: 85%;
+  }
+
+  .messageContent {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .messageTime {
+    font-size: 10px;
+  }
+
+  .chatbotInput {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .inputField {
+    padding: 12px 14px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .sendButton {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .iconButton {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .themeToggle,
+  .closeButton {
+    width: 32px;
+    height: 32px;
+    font-size: 22px;
+  }
+}
+
+/* Small Mobile Phones */
+@media (max-width: 380px) {
+  .chatbotToggle {
+    width: 45px;
+    height: 45px;
+    font-size: 32px;
+    bottom: 12px;
+    right: 12px;
+  }
+
+  .chatbotHeader {
+    padding: 12px 14px;
+  }
+
+  .chatbotTitle {
+    font-size: 14px;
+  }
+
+  .chatbotMessages {
+    padding: 10px;
+  }
+
+  .messageContent {
+    padding: 9px 11px;
+    font-size: 13px;
+  }
+
+  .inputField {
+    padding: 10px 12px;
+    font-size: 16px;
+  }
+
+  .sendButton,
+  .iconButton {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
   }
 }
 
